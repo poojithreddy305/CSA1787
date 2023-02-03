@@ -1,0 +1,38 @@
+from typing import List, Tuple
+
+def map_coloring(variables: List[str], domains: Tuple[Tuple[str, ...], ...], neighbors: Tuple[Tuple[int, int], ...], colors: Tuple[str, ...]):
+    def constraints(A, a, B, b):
+        if A == B:
+            return True
+        if a == b:
+            return False
+        return True
+
+    def backtracking_search():
+        if len(variables) == 0:
+            return {}
+        var = variables.pop()
+        for val in domains[var]:
+            if all(constraints(var, val, B, assignments.get(B)) for B in neighbors[var]):
+                assignments[var] = val
+                result = backtracking_search()
+                if result is not None:
+                    return result
+        variables.append(var)
+        return None
+
+    assignments = {}
+    result = backtracking_search()
+    return result
+
+if __name__ == '__main__':
+    variables = ['WA', 'NT', 'Q', 'NSW', 'V', 'SA', 'T']
+    domains = {var: colors for var in variables}
+    neighbors = {
+        'SA': ['WA', 'NT', 'Q', 'NSW', 'V'],
+        'NT': ['WA', 'Q'],
+        'NSW': ['Q', 'V']
+    }
+    colors = ('red', 'green', 'blue')
+    result = map_coloring(variables, domains, neighbors, colors)
+    print(result)
