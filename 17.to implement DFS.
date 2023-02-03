@@ -1,0 +1,28 @@
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.adj_matrix = [[0 for column in range(vertices)]
+                           for row in range(vertices)]
+ 
+    def add_edge(self, u, v):
+        self.adj_matrix[u][v] = 1
+ 
+    def DFS(self, v, visited):
+        visited[v] = True
+        print(v, end=' ')
+        for i in range(self.V):
+            if self.adj_matrix[v][i] == 1 and not visited[i]:
+                self.DFS(i, visited)
+ 
+ 
+g = Graph(4)
+g.add_edge(0, 1)
+g.add_edge(0, 2)
+g.add_edge(1, 2)
+g.add_edge(2, 0)
+g.add_edge(2, 3)
+g.add_edge(3, 3)
+ 
+visited = [False for i in range(4)]
+print("Following is DFS from vertex 2")
+g.DFS(2, visited)
