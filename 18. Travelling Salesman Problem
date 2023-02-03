@@ -1,0 +1,18 @@
+import itertools
+
+def travelling_salesman(cities, distances):
+    """
+    cities: list of city names
+    distances: dictionary where distances[(A, B)] gives the distance between city A and city B
+    """
+    n = len(cities)
+    best_route = None
+    shortest_distance = float('inf')
+    for route in itertools.permutations(cities):
+        distance = 0
+        for i in range(n - 1):
+            distance += distances[route[i], route[i + 1]]
+        if distance < shortest_distance:
+            shortest_distance = distance
+            best_route = route
+    return list(best_route), shortest_distance
