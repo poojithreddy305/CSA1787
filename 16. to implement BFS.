@@ -1,0 +1,30 @@
+from collections import deque
+
+def bfs(graph, start, end):
+    queue = deque([start])
+    visited = set([start])
+    
+    while queue:
+        node = queue.popleft()
+        if node == end:
+            return True
+        
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    
+    return False
+
+graph = {
+    0: [1, 2],
+    1: [0, 3, 4],
+    2: [0, 5, 6],
+    3: [1],
+    4: [1],
+    5: [2],
+    6: [2],
+}
+
+print(bfs(graph, 0, 6)) # True
+print(bfs(graph, 0, 7)) # False
