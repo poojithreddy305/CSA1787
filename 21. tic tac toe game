@@ -1,0 +1,34 @@
+def print_board(board):
+    print(" {} | {} | {}".format(board[0][0], board[0][1], board[0][2]))
+    print("---+---+---")
+    print(" {} | {} | {}".format(board[1][0], board[1][1], board[1][2]))
+    print("---+---+---")
+    print(" {} | {} | {}".format(board[2][0], board[2][1], board[2][2]))
+
+def check_win(board, player):
+    for row in board:
+        if all(cell == player for cell in row):
+            return True
+    for col in zip(*board):
+        if all(cell == player for cell in col):
+            return True
+    if all(board[i][i] == player for i in range(3)):
+        return True
+    if all(board[i][2 - i] == player for i in range(3)):
+        return True
+    return False
+
+board = [[' ' for _ in range(3)] for _ in range(3)]
+player = 'X'
+while True:
+    print_board(board)
+    row, col = map(int, input("Player {}, enter your move (row column): ".format(player)).split())
+    if board[row][col] != ' ':
+        print("That cell is already occupied, try again.")
+        continue
+    board[row][col] = player
+    if check_win(board, player):
+        print_board(board)
+        print("Player {} wins!".format(player))
+        break
+    player = 'O' if player == 'X' else 'X'
