@@ -1,0 +1,41 @@
+def minimax(board, player):
+    if game_over(board):
+        return evaluate(board)
+
+    if player == 'X':
+        best_value = -float('inf')
+        for move in get_moves(board):
+            new_board = make_move(board, move, player)
+            value = minimax(new_board, 'O')
+            best_value = max(best_value, value)
+        return best_value
+    else:
+        best_value = float('inf')
+        for move in get_moves(board):
+            new_board = make_move(board, move, player)
+            value = minimax(new_board, 'X')
+            best_value = min(best_value, value)
+        return best_value
+
+def get_moves(board):
+    # return a list of all possible moves
+
+def make_move(board, move, player):
+    # return a new board after the given move is made
+
+def game_over(board):
+    # return True if the game is over, False otherwise
+
+def evaluate(board):
+    # return a score for the given board, higher for better X and lower for better O
+
+board = create_board()
+best_move = None
+best_value = -float('inf')
+for move in get_moves(board):
+    new_board = make_move(board, move, 'X')
+    value = minimax(new_board, 'O')
+    if value > best_value:
+        best_value = value
+        best_move = move
+print("The best move is", best_move)
