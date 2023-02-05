@@ -1,0 +1,28 @@
+% Symptoms and Diseases
+symptom(headache).
+symptom(fever).
+symptom(rash).
+symptom(fatigue).
+symptom(nausea).
+
+disease(flu, [headache, fever, fatigue]).
+disease(measles, [fever, rash]).
+disease(food_poisoning, [nausea, headache]).
+
+% Diagnosis
+diagnosis(Patient, Disease) :-
+    symptoms(Patient, Symptoms),
+    disease(Disease, Symptoms).
+
+% Symptoms of a patient
+symptoms(Patient, Symptoms) :-
+    findall(S, (symptom(S), has_symptom(Patient, S)), Symptoms).
+
+% Check if a patient has a particular symptom
+has_symptom(Patient, Symptom) :-
+    symptom_present(Patient, Symptom).
+
+% Input for symptom presence
+symptom_present(john, headache).
+symptom_present(john, fever).
+symptom_present(john, fatigue).
