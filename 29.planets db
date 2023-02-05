@@ -1,0 +1,5 @@
+% Define the planets and their properties
+planet(mercury).
+planet(venus).
+planet(earth).
+planet(mars).
