@@ -1,0 +1,78 @@
+% Define the state of the world as a set of predicates
+% state(MonkeyLocation, MonkeyHasBanana, BananaLocation)
+
+% Initial state
+state(atdoor, onfloor, atdoor).
+
+% Rules for moving the monkey
+
+% Move monkey from door to window
+move(atdoor, atwindow) :-
+    retract(state(atdoor, onfloor, atdoor)),
+    assert(state(atwindow, onfloor, atdoor)).
+
+% Move monkey from door to floor
+move(atdoor, onfloor) :-
+    retract(state(atdoor, onfloor, atdoor)),
+    assert(state(atdoor, onfloor, atdoor)).
+
+% Move monkey from floor to door
+move(onfloor, atdoor) :-
+    retract(state(atdoor, onfloor, atdoor)),
+    assert(state(atdoor, onfloor, atdoor)).
+
+% Move monkey from floor to window
+move(onfloor, atwindow) :-
+    retract(state(atdoor, onfloor, atdoor)),
+    assert(state(atwindow, onfloor, atdoor)).
+
+% Move monkey from window to door
+move(atwindow, atdoor) :-
+    retract(state(atwindow, onfloor, atdoor)),
+    assert(state(atdoor, onfloor, atdoor)).
+
+% Move monkey from window to floor
+move(atwindow, onfloor) :-
+    retract(state(atwindow, onfloor, atdoor)),
+    assert(state(atwindow, onfloor, atdoor)).
+
+% Rule for picking up the banana
+
+% Monkey can pick up banana only if it's at the same location as the banana
+pickup(atdoor, atdoor) :-
+    retract(state(atdoor, onfloor, atdoor)),
+    assert(state(atdoor, holding, atdoor)).
+
+pickup(atwindow, atwindow) :-
+    retract(state(atwindow, onfloor, atdoor)),
+    assert(state(atwindow, holding, atdoor)).
+
+% Rule for putting down the banana
+
+% Monkey can only put down the banana if it's holding it
+putdown(atdoor, atdoor) :-
+    retract(state(atdoor, holding, atdoor)),
+    assert(state(atdoor, onfloor, atdoor)).
+
+putdown(atwindow, atwindow) :-
+    retract(state(atwindow, holding, atdoor)),
+    assert(state(atwindow, onfloor, atdoor)).
+
+% The goal state
+goal(atdoor, holding, atdoor).
+
+% The solve predicate
+solve :-
+    retractall(state(_, _, _)), % clear all previous states
+    assert(state(atdoor, onfloor, atdoor)), % initialize initial state
+    solve_helper.
+
+% Helper predicate to find a solution
+solve_helper :-
+    state(atdoor, holding, atdoor), % check if goal state is reached
+    write('Solution found!').
+
+solve_helper :-
+    state(MonkeyLocation, MonkeyHasBanana, BananaLocation),
+    write('Current state: '), write(state(MonkeyLocation, MonkeyHasBanana, BananaLocation)), nl,
+    move(
