@@ -1,0 +1,22 @@
+% Define the fact that certain birds can fly
+can_fly(eagle).
+can_fly(pigeon).
+can_fly(sparrow).
+
+% Define a rule to determine if a bird can fly
+can_fly(Bird) :-
+    write(Bird),
+    write(" can fly.").
+
+% Define a rule to determine if a bird cannot fly
+cannot_fly(Bird) :-
+    write(Bird),
+    write(" cannot fly."),
+    fail.
+
+% Main query to determine if a bird can fly or not
+query(Bird) :-
+    can_fly(Bird), !.
+query(Bird) :-
+    cannot_fly(Bird).
+
