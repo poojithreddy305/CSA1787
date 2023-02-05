@@ -1,0 +1,52 @@
+def alphabeta(board, player, alpha, beta):
+    if game_over(board):
+        return evaluate(board)
+
+    if player == 'X':
+        best_value = -float('inf')
+        for move in get_moves(board):
+            new_board = make_move(board, move, player)
+            value = alphabeta(new_board, 'O', alpha, beta)
+            best_value = max(best_value, value)
+            alpha = max(alpha, best_value)
+            if beta <= alpha:
+                break
+        return best_value
+    else:
+        best_value = float('inf')
+        for move in get_moves(board):
+            new_board = make_move(board, move, player)
+            value = alphabeta(new_board, 'X', alpha, beta)
+            best_value = min(best_value, value)
+            beta = min(beta, best_value)
+            if beta <= alpha:
+                break
+        return best_value
+
+def get_moves(board):
+    # return a list of all possible moves
+
+def make_move(board, move, player):
+    # return a new board after the given move is made
+
+def game_over(board):
+    # return True if the game is over, False otherwise
+
+def evaluate(board):
+    # return a score for the given board, higher for better X and lower for better O
+
+board = create_board()
+best_move = None
+best_value = -float('inf')
+alpha = -float('inf')
+beta = float('inf')
+for move in get_moves(board):
+    new_board = make_move(board, move, 'X')
+    value = alphabeta(new_board, 'O', alpha, beta)
+    if value > best_value:
+        best_value = value
+        best_move = move
+    alpha = max(alpha, best_value)
+    if beta <= alpha:
+        break
+print("The best move is", best_move)
