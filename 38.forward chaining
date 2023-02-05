@@ -1,0 +1,20 @@
+% Knowledge base for forward chaining
+
+% Facts
+likes(john, books).
+likes(john, music).
+likes(jane, books).
+likes(jane, wine).
+
+% Rules
+enjoys(X, Y) :- likes(X, Z), likes(Z, Y).
+
+% Queries
+?- enjoys(john, books).
+% Output: true.
+
+?- enjoys(jane, wine).
+% Output: true.
+
+?- enjoys(john, wine).
+% Output: false.
