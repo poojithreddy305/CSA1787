@@ -3,3 +3,22 @@ planet(mercury).
 planet(venus).
 planet(earth).
 planet(mars).
+planet(jupiter).
+planet(saturn).
+planet(uranus).
+planet(neptune).
+
+% Define relationships between the planets
+inner_planet(mercury).
+inner_planet(venus).
+inner_planet(earth).
+
+outer_planet(jupiter).
+outer_planet(saturn).
+outer_planet(uranus).
+outer_planet(neptune).
+
+% Define queries to ask about the planets
+is_planet(X) :- planet(X).
+is_inner_planet(X) :- inner_planet(X).
+is_outer_planet(X) :- outer_planet(X).
