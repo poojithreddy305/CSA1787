@@ -1,0 +1,8 @@
+person(john, date(1990, 01, 01)).
+person(jane, date(1995, 05, 05)).
+person(jim, date(1992, 12, 12)).
+
+% predicate to extract the year of birth
+year_of_birth(Person, Year) :-
+    person(Person, Date),
+    Date = date(Year, _, _).
