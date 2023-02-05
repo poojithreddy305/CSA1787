@@ -1,0 +1,11 @@
+student(john, mary, math).
+student(jane, mike, history).
+student(jim, mary, science).
+
+% predicate to find the teacher of a student
+teacher(Student, Teacher) :-
+    student(Student, Teacher, _).
+
+% predicate to find the subject a student is taking
+subject(Student, Subject) :-
+    student(Student, _, Subject).
