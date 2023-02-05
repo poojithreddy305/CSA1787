@@ -1,0 +1,28 @@
+% Define female persons
+female(pam).
+female(liz).
+female(ann).
+female(pat).
+
+% Define male persons
+male(tom).
+male(bob).
+male(jim).
+
+% Define mother relation
+mother(X, Y) :- female(X), parent(X, Y).
+
+% Define father relation
+father(X, Y) :- male(X), parent(X, Y).
+
+% Define grandfather relation
+grandfather(X, Y) :- male(X), parent(X, Z), parent(Z, Y).
+
+% Define grandmother relation
+grandmother(X, Y) :- female(X), parent(X, Z), parent(Z, Y).
+
+% Define sister relation
+sister(X, Y) :- female(X), parent(Z, X), parent(Z, Y), X \= Y.
+
+% Define brother relation
+brother(X, Y) :- male(X), parent(Z, X), parent(Z, Y), X \= Y.
